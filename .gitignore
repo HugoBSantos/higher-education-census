@@ -1,0 +1,9 @@
+.venv/
+
+.env
+CLAUDE.md
+
+*.ipynb
+*.zip
+*.csv
+*.parquet
