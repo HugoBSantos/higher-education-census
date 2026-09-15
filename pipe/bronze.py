@@ -8,7 +8,6 @@ from pathlib import Path
 from zipfile import ZipFile
 
 from pipe.utils.tls_adapter import INEPTLSAdapter
-from pipe.utils.etl_utils import INEP_COLUMNS
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -61,7 +60,7 @@ def create_bronze():
 
                     conn.execute(f"""
                         COPY (
-                            SELECT {", ".join(INEP_COLUMNS[f])}
+                            SELECT *
                             FROM read_csv('{tmp.name}', delim=';', encoding='latin-1')
                         )
                         TO '{output_path}'
