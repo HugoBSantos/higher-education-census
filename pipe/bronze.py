@@ -1,8 +1,6 @@
-import duckdb
 import requests_cache
 
 import io
-import tempfile
 
 from pathlib import Path
 from zipfile import ZipFile
@@ -25,7 +23,7 @@ def create_bronze():
         "MICRODADOS_ED_SUP_IES_2024.CSV"
     ]
     output_paths = {
-        f: BRONZE / f.lower().replace(".csv", ".parquet") for f in source_files
+        f: BRONZE / f.lower() for f in source_files
     }
     files_exist = all(p.exists() for p in output_paths.values())
 
@@ -47,26 +45,10 @@ def create_bronze():
         response = session.get(url)
         response.raise_for_status()
 
-        conn = duckdb.connect()
-
         with ZipFile(io.BytesIO(response.content)) as zf:
             for f, output_path in output_paths.items():
-
                 file_data = zf.read(f"{zip_name}/dados/{f}")
-
-                with tempfile.NamedTemporaryFile(suffix=".csv") as tmp:
-                    tmp.write(file_data)
-                    tmp.flush()
-
-                    conn.execute(f"""
-                        COPY (
-                            SELECT *
-                            FROM read_csv('{tmp.name}', delim=';', encoding='latin-1')
-                        )
-                        TO '{output_path}'
-                    """)
-
+                output_path.write_bytes(file_data)
         print("Arquivos extraídos com sucesso!")
-
     else:
         print("Ambos os arquivos já existem.")
