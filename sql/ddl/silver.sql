@@ -43,14 +43,16 @@ CREATE TABLE silver.ies (
     nome VARCHAR(200) NOT NULL,
     sigla VARCHAR(20),
     e_publica BOOLEAN NOT NULL,
-    organizacao_academica_id SMALLINT NOT NULL REFERENCES silver.organizacoes_academicas (organizacao_academica_id),
-    categoria_administrativa_id SMALLINT NOT NULL REFERENCES silver.categorias_administrativas (categoria_administrativa_id),
+    organizacao_academica_id SMALLINT NOT NULL -- REFERENCES silver.organizacoes_academicas (organizacao_academica_id),
+    categoria_administrativa_id SMALLINT NOT NULL -- REFERENCES silver.categorias_administrativas (categoria_administrativa_id),
     municipio_id INTEGER NOT NULL REFERENCES silver.municipios (municipio_id),
 
     qtd_docentes_total INTEGER,
     qtd_docentes_em_exercicio INTEGER,
 
     -- Constraints
+    CHECK (organizacao_academica_id BETWEEN 1 AND 5),
+    CHECK (categoria_administrativa_id BETWEEN 1 AND 9),
     CHECK (qtd_docentes_total >= 0),
     CHECK (qtd_docentes_em_exercicio >= 0),
     CHECK (qtd_docentes_em_exercicio <= qtd_docentes_total)
