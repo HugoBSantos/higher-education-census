@@ -43,14 +43,18 @@ CREATE TABLE silver.ies (
     nome VARCHAR(200) NOT NULL,
     sigla VARCHAR(20),
     e_publica BOOLEAN NOT NULL,
-    organizacao_academica_id SMALLINT NOT NULL -- REFERENCES silver.organizacoes_academicas (organizacao_academica_id),
-    categoria_administrativa_id SMALLINT NOT NULL -- REFERENCES silver.categorias_administrativas (categoria_administrativa_id),
+    -- Sem FK de propósito: o DuckDB transforma o UPDATE de coluna indexada em DELETE + INSERT,
+    -- e silver.cursos referencia silver.ies, então a FK bloquearia editar estes campos via CRUD.
+    -- Os valores válidos são garantidos pelos CHECKs abaixo.
+    organizacao_academica_id SMALLINT NOT NULL, -- REFERENCES silver.organizacoes_academicas (organizacao_academica_id),
+    categoria_administrativa_id SMALLINT NOT NULL, -- REFERENCES silver.categorias_administrativas (categoria_administrativa_id),
     municipio_id INTEGER NOT NULL REFERENCES silver.municipios (municipio_id),
 
     qtd_docentes_total INTEGER,
     qtd_docentes_em_exercicio INTEGER,
 
     -- Constraints
+    CHECK (e_publica = (categoria_administrativa_id IN (1,2,3,7))),
     CHECK (organizacao_academica_id BETWEEN 1 AND 5),
     CHECK (categoria_administrativa_id BETWEEN 1 AND 9),
     CHECK (qtd_docentes_total >= 0),
@@ -61,7 +65,7 @@ CREATE TABLE silver.ies (
 
 CREATE TABLE silver.graus_academicos (
     grau_academico_id SMALLINT PRIMARY KEY,
-    nome VARCHAR(30)
+    nome VARCHAR(30) NOT NULL
 );
 
 
