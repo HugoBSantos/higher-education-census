@@ -54,7 +54,7 @@ Dois arquivos de microdados são usados, unidos por `CO_IES`:
 ```mermaid
 flowchart LR
     A[INEP<br/>microdados CSV] --> B[Bronze<br/>CSV bruto, fidelidade total à fonte]
-    B --> C[Silver<br/>DuckDB SQL, 31 colunas em 9 tabelas<br/>persistido no MotherDuck]
+    B --> C[Silver<br/>DuckDB SQL, 30 colunas em 9 tabelas<br/>persistido no MotherDuck]
     C --> D[Gold<br/>views DuckDB, métricas de funil]
     D --> E[API FastAPI<br/>GET]
     C -.CRUD.-> F[API FastAPI<br/>POST / PUT / PATCH / DELETE<br/>restrito a silver.ies]
@@ -73,7 +73,7 @@ O adaptador TLS customizado ([`pipe/utils/tls_adapter.py`](pipe/utils/tls_adapte
 
 ### Silver (implementada)
 
-Em [`pipe/silver.py`](pipe/silver.py), a função `create_silver()` lê os CSVs com `read_csv()` (todas as colunas como texto, com cast explícito na inserção), aplica a curadoria definida em [`pipe/utils/etl_utils.py`](pipe/utils/etl_utils.py) (31 das 310 colunas da fonte, ~90% de redução) e persiste um modelo normalizado de 9 tabelas no MotherDuck. O schema está em [`sql/ddl/silver.sql`](sql/ddl/silver.sql).
+Em [`pipe/silver.py`](pipe/silver.py), a função `create_silver()` lê os CSVs com `read_csv()` (todas as colunas como texto, com cast explícito na inserção), aplica a curadoria definida em [`pipe/utils/etl_utils.py`](pipe/utils/etl_utils.py) (30 das 310 colunas da fonte, ~90% de redução) e persiste um modelo normalizado de 9 tabelas no MotherDuck. O schema está em [`sql/ddl/silver.sql`](sql/ddl/silver.sql).
 
 A carga é um full refresh dentro de uma única transação: o schema `silver` (e o `gold`, que depende dele) é apagado e recriado a cada execução. Por isso, **rodar o pipeline de novo descarta as edições feitas via CRUD**.
 
