@@ -139,7 +139,6 @@ Modelo normalizado da camada silver, com o Censo 2024 (2.561 IES e 46.150 cursos
 | `e_gratuito`        | BOOLEAN      | Curso é gratuito? (`IN_GRATUITO`)                                         | Silver           |
 | `e_presencial`      | BOOLEAN      | Presencial (verdadeiro) ou EAD (falso) (`TP_MODALIDADE_ENSINO`)           | Silver           |
 | `e_graduacao`       | BOOLEAN      | Graduação (verdadeiro) ou sequencial (falso) (`TP_NIVEL_ACADEMICO`)       | Silver           |
-| `qtd_cursos`        | SMALLINT     | Número de cursos (`QT_CURSO`); pode ser 0, então não substitui `COUNT(*)` | Silver           |
 | `qtd_vagas`         | INTEGER      | Total de vagas oferecidas (`QT_VG_TOTAL`)                                 | Silver           |
 | `qtd_inscritos`     | INTEGER      | Total de inscritos (`QT_INSCRITO_TOTAL`)                                  | Silver           |
 | `qtd_ingressantes`  | INTEGER      | Ingressantes em 01/jan e 01/jul do ano de referência (`QT_ING`)           | Silver           |

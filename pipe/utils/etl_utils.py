@@ -32,7 +32,6 @@ INEP_COLUMNS = {
             "TP_NIVEL_ACADEMICO": "nivel_academico",
             "CO_CINE_AREA_GERAL": "area_geral_id",
             "NO_CINE_AREA_GERAL": "nome_area_geral",
-            "QT_CURSO": "qtd_cursos",
             "QT_VG_TOTAL": "qtd_vagas",
             "QT_INSCRITO_TOTAL": "qtd_inscritos",
             "QT_ING": "qtd_ingressantes",

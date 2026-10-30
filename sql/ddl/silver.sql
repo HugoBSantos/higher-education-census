@@ -85,7 +85,6 @@ CREATE TABLE silver.cursos (
     e_presencial BOOLEAN NOT NULL,
     e_graduacao BOOLEAN NOT NULL,
     
-    qtd_cursos SMALLINT,
     qtd_vagas INTEGER,
     qtd_inscritos INTEGER,
     qtd_ingressantes INTEGER,
@@ -93,7 +92,6 @@ CREATE TABLE silver.cursos (
     qtd_concluintes INTEGER,
 
     -- Constraints
-    CHECK (qtd_cursos >= 0),
     CHECK (qtd_vagas >= 0),
     CHECK (qtd_inscritos >= 0),
     CHECK (qtd_ingressantes >= 0),

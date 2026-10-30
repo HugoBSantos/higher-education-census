@@ -141,7 +141,6 @@ def create_silver(conn: duckdb.DuckDBPyConnection):
                     WHEN '2' THEN false
                 END
             ) AS e_graduacao,
-            SUM(CAST(qtd_cursos AS SMALLINT)),
             SUM(CAST(qtd_vagas AS INTEGER)),
             SUM(CAST(qtd_inscritos AS INTEGER)),
             SUM(CAST(qtd_ingressantes AS INTEGER)),
